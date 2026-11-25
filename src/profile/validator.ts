@@ -24,9 +24,9 @@ const user3: UserProfile ={
         notifications: false
     }
 }
-function isnotified(user: UserProfile): boolean{
+function isNotified(user: UserProfile): boolean{
     return user.settings?.notifications ?? false;
 }
-console.log(isnotified(user1))
-console.log(isnotified(user2))
-console.log(isnotified(user3))
+console.log(isNotified(user1))
+console.log(isNotified(user2))
+console.log(isNotified(user3))
