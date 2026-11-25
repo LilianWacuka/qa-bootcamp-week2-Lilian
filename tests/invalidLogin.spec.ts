@@ -1,13 +1,21 @@
-import {test, expect} from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-test('invalid is rejected and show error message', async({page})=>{
-    await page.goto('https://with-bugs.practicesoftwaretesting.com/#/auth/login')
+test('invalid login is rejected and shows an error message', async ({ page }) => {
+
+    await page.goto('https://with-bugs.practicesoftwaretesting.com/#/auth/login');
     
-    await page.locator('[data-test="email"]').fill('juhujj');
-    await page.locator('[data-test="password"]').fill('juhujj');
-    await page.locator('[data-test="login-submit"]').click();
+    await page.getByRole('heading', { name: 'Login' }).click();
+    // Enter invalid email
+    // await page.locator('[data-test="email"]').fill('wrong email');
+    await page.getByRole('textbox', { name: 'Your E-mail *' }).fill('wrong@email.com');
 
-    const errorMessage = page.getByText('Invalid email or password')
+    // Enter invalid password
+    await page.getByRole('textbox', { name: 'Your password *' }).fill('wert5');
 
-    // expect(errorMessage).toBeVisible();
-})
+    // Click the Login button
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    // Verify the error message is displayed
+    await expect(page.getByText('Invalid email or password')).toBeVisible();
+
+});

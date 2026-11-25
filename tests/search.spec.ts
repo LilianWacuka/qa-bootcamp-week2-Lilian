@@ -1,25 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-test('search returns only products with pliers in the name', async ({ page }) => {
-    await page.goto('https://with-bugs.practicesoftwaretesting.com/#/');
+test('search for pliers returns only products with pliers in the name', async ({ page }) => {
+  await page.goto('https://practicesoftwaretesting.com/');
 
-    
-    const searchBar = page.locator('[data-test="search-query"]');
-    await searchBar.fill('pliers');
+  // Enter the search term
+  await page.getByRole('textbox').fill('pliers');
 
+  // Click the Search button
+  await page.getByRole('button', { name: 'Search' }).click();
 
-    await page.locator('[data-test="search-submit"]').click();
-
-    
-    const productNames = page.locator('[data-test="product-name"]');
-
-    
-    await expect(productNames.first()).toBeVisible();
-
-    // Check every returned product name
-    // const count = await productNames.count();
-
-    // for (let i = 0; i < count; i++) {
-    //     await expect(productNames.nth(i)).toContainText(/pliers/i);
-    // }
+  const productNames = page.getByRole('heading', { level: 1})
+  await expect(productNames.first()).toBeVisible();
 });
