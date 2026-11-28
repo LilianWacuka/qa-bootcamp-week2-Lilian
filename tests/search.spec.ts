@@ -9,6 +9,6 @@ test('search for pliers returns only products with pliers in the name', async ({
   // Click the Search button
   await page.getByRole('button', { name: 'Search' }).click();
 
-  const productNames = page.getByRole('heading', { level: 1})
-  await expect(productNames.first()).toBeVisible();
+
+  await expect(page.getByText("4 products found for 'pliers'")).toBeVisible();
 });
